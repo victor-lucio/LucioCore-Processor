@@ -1,0 +1,54 @@
+processador MIPS/RISC 32 bits
+
+- monociclo
+- banco de registradores de 32 bits
+
+instruções:
+
+1 - adição
+2 - adição imediato
+3 - subtração
+4 - subtração imediato
+5 - soma 1
+6 - subtrai 1
+7 - and
+8 - or
+9 - xor
+10 - not
+11 - mod
+12 - deslocamento esquerda
+13 - deslocamento direita
+14 - set less than
+15 - branch equals
+16 - branch not equals
+17 - jump
+17 - jump to register
+18 - halt (parar)
+19 - entrada (chaves FPGA)
+20 - saida (display FPGA)
+21 - load
+22 - load imediato
+23 - load próximo endereço
+24 - store
+25 - multiplicação
+26 - divisão
+27 - nop
+
+-6 bits opcode (possibilidade de colocar mais instruções)
+
+componentes do processador:
+
+-Caminho de Dados
+-Program counter (pula de 4 em 4 bytes ou 32 bits)
+-Memória {
+	de instruções
+	de dados
+}
+-Unidade Lógica e Aritmética
+-Extensor de bits (transformar um imediato em 32 bits)
+-Banco de registradores
+-Unidade de controle
+
+------------------------------------------------------------
+
+
