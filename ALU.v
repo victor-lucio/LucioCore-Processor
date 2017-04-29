@@ -49,6 +49,8 @@ module ALU(operation, dataA, dataB, saida, zero, shamt, of);
 				if(dataB == 32'd0)
 					of = 1;
 			end
+			4'b1110: saida = dataA > dataB ? 1 : 0;
+			4'b1111: saida = dataA == dataB ? 1 : 0;
 			default: saida = 32'b0;
 		endcase
 	end

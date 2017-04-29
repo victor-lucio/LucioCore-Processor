@@ -13,12 +13,15 @@ module InstMem(address, clk, out);
 		// instruções
 				     //opcoderegi1regi2regi3shamtfuunct
 					  //10987654321098765432109876543210
-		mem[0] = 32'b00000000000000000000100000000000; //coloca entrada de dados no reg 1
-		mem[1] = 32'b00000000001000000000000000000000; //leg reg 1 em B
-		mem[2] = 32'b00000000001000000001000000000000; //coloca entrada no reg 2
-		mem[3] = 32'b00000000000000100000000000000000; //leg reg 2 em B
-		//mem[4] = 32'b00000000001000100001100000000000; //lê reg 1 e reg 2, joga no reg 3
-		//mem[5] = 32'b00000000000000110000000000000000; //lê reg 3
+		mem[0] = 32'b00000000000000010000000000000101; // reg 1 <- imediato (tipo I)
+		mem[1] = 32'b00000000001000000001000000000000; // reg 2 <- reg 1 + reg 1 (tipo R)
+		mem[2] = 32'b00000000001000100001100000000000; // set equals
+		mem[3] = 32'b00000000000000110000000000000000; // le reg 2 em B e reg 1 em A
+		mem[4] = 32'b00000000000000110000000000000001; // bne
+		mem[5] = 32'b00000000000001000000000000000011; // 3 no reg 4
+		mem[6] = 32'b00000000000001000000000000000100; // 4 no reg 4
+		mem[7] = 32'b00000000000001000000000000000000; // mostra reg 4 em B pra jogar no display
+ 		
 		firstclock <= 1;
 	end
   end

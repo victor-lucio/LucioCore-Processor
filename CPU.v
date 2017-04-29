@@ -1,4 +1,4 @@
-module CPU(clk, halt, reset, sreg, smux5, smux16, smux32, smuxPC, salu, smem, sdisplay, smemtoreg, display, switches, zero, of, A, B, newpc);//smux32, smuxPC, salu, smemreg, smem, sout, display, switches);
+module CPU(clk, halt, reset, sreg, smux5, smux16, smux32, smuxPC, salu, smem, sdisplay, smemtoreg, display, switches, zero, of, A, B, newpc, out1, out2, out3);//smux32, smuxPC, salu, smemreg, smem, sout, display, switches);
 
 	input clk, halt, reset, sreg, smux5, smem, sdisplay, smemtoreg, smux32;
 	input [1:0] smux16;
@@ -17,6 +17,7 @@ module CPU(clk, halt, reset, sreg, smux5, smux16, smux32, smuxPC, salu, smem, sd
 	wire [31:0] muxMemtoreg_reg, mem_muxMemtoreg;
 	output wire [31:0] display;
 	output wire zero, of;
+	output wire [6:0] out1, out2, out3;
 
 	PC instPC(.inaddress(newpc), .outaddress(pc_instmem), .halt(halt), .clk(clk), .reset(reset));
 	
@@ -43,6 +44,8 @@ module CPU(clk, halt, reset, sreg, smux5, smux16, smux32, smuxPC, salu, smem, sd
 	Mux32 Memtoreg(.flag(smemtoreg), .dataA(saidaalu), .dataB(mem_muxMemtoreg), .out(muxMemtoreg_reg));
 	
 	MuxPC instMuxPC(.zero(zero), .control(smuxPC), .branch(se16_muxpc), .jimmediate(se26_muxpc), .jreg(A), .PCin(pc_instmem), .PCout(newpc));
+	
+	OutputModule instOutputModule(.in(display), .out1(out1), .out2(out2), .out3(out3));
 	
 
 endmodule 
