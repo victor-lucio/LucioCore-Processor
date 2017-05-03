@@ -1,12 +1,26 @@
-module bin_bcd(in, centena, dezena, unidade);
+module bin_bcd(in, centena, dezena, unidade, negative);
 
 	input [7:0] in;
+	reg [7:0] in2;
 	output reg [3:0] centena, dezena, unidade;
+	output reg negative;
 	
 	integer i;
 	
 	always@(in)
 	begin
+		
+		if(in[7])
+			begin
+				in2 = ~in + 1;
+				negative = 1;
+			end
+		else
+			begin
+				in2 = in;
+				negative = 0;
+			end
+		
 		centena = 4'd0;
 		dezena = 4'd0;
 		unidade = 4'd0;
@@ -28,7 +42,7 @@ module bin_bcd(in, centena, dezena, unidade);
 			dezena = dezena << 1;
 			dezena[0] = unidade[3];
 			unidade = unidade << 1;
-			unidade[0] = in[i];
+			unidade[0] = in2[i];
 		end
 	end
 	

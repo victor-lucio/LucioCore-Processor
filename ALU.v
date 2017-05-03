@@ -36,21 +36,21 @@ module ALU(operation, dataA, dataB, saida, zero, shamt, of);
 			4'b1000: saida = dataA << shamt;
 			4'b1001: saida = dataA >> shamt;
 			4'b1010: saida = dataA < dataB ? 1 : 0;
-			4'b1011: saida = dataA[15:0] * dataB[15:0];
-			4'b1100:
+			4'b1011: saida = dataA == dataB ? 1 : 0;
+			4'b1100: saida = dataA > dataB ? 1 : 0;
+			4'b1101: saida = dataA[15:0] * dataB[15:0];
+			4'b1110:
 			begin
 				saida = dataA / dataB;
 				if(dataB == 32'd0)
 					of = 1;
 			end
-			4'b1101:
+			4'b1111:
 			begin
 				saida = dataA % dataB;
 				if(dataB == 32'd0)
 					of = 1;
 			end
-			4'b1110: saida = dataA > dataB ? 1 : 0;
-			4'b1111: saida = dataA == dataB ? 1 : 0;
 			default: saida = 32'b0;
 		endcase
 	end
