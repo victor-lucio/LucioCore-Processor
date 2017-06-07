@@ -1,9 +1,10 @@
-module CPU(clk, halt, reset, sreg, smux5, smux16, smux32, smuxPC, salu, smem, sdisplay, smemtoreg, display, switches, out1, out2, out3, muxMemtoreg_reg, newpc, pc_instmem, negative);
+module CPU(clk, ready, display, switches, out1, out2, out3, muxMemtoreg_reg, newpc, pc_instmem, negative);
 
-	input clk, halt, reset, sreg, smux5, smem, sdisplay, smemtoreg, smux32;
-	input [1:0] smux16;
-	input [2:0] smuxPC;
-	input [3:0] salu;
+	input clk, ready;
+	wire	halt, reset, sreg, smux5, smem, sdisplay, smemtoreg, smux32;
+	wire [1:0] smux16;
+	wire [2:0] smuxPC;
+	wire [3:0] salu;
 	output wire [15:0] newpc;
 	input [15:0] switches;
 	output wire [15:0] pc_instmem;
@@ -22,6 +23,8 @@ module CPU(clk, halt, reset, sreg, smux5, smux16, smux32, smuxPC, salu, smem, sd
 	output wire negative;
 
 	PC instPC(.inaddress(newpc), .outaddress(pc_instmem), .halt(halt), .clk(clk), .reset(reset));
+	
+	ControlUnit instControlUnit(.clk(clk), .ready(ready), .opcode(inst[31:26]), .halt(halt), .reset(reset), .sreg(sreg), .smux5(smux5), .smux16(smux16), .smux32(smux32), .smuxPC(smuxPC), .salu(salu), .smem(smem), .sdisplay(sdisplay), .smemtoreg(smemtoreg));
 	
 	InstMem instInstMem(.address(pc_instmem), .clk(clk), .out(inst));
 	
