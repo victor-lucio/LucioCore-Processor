@@ -12,12 +12,12 @@ module bin_bcd(in, centena, dezena, unidade, negative);
       if(in[7])
 		begin
 		  in2 = ~in + 1;
-		  negative = 1;
+		  negative = 0;
 		end
 	  else
 		begin
 		  in2 = in;
-		  negative = 0;
+		  negative = 1;
 		end
 		
     

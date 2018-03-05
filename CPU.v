@@ -1,13 +1,14 @@
-module CPU(clk, ready, display, switches, out1, out2, out3, muxMemtoreg_reg, newpc, pc_instmem, negative);
+module CPU(clock, ndclk, ready, switches, out1, out2, out3, negative, of);
 
-	input clk, ready;
+	input ndclk, ready, clock;
+	wire	clk;
 	wire	halt, reset, sreg, smux5, smem, sdisplay, smemtoreg, smux32;
 	wire [1:0] smux16;
 	wire [2:0] smuxPC;
 	wire [3:0] salu;
-	output wire [15:0] newpc;
+	wire [15:0] newpc;
 	input [15:0] switches;
-	output wire [15:0] pc_instmem;
+	wire [15:0] pc_instmem;
 	wire [31:0] mux32_alu;
 	wire [31:0] inst;
 	wire [4:0] mux5_reg;
@@ -16,12 +17,14 @@ module CPU(clk, ready, display, switches, out1, out2, out3, muxMemtoreg_reg, new
 	wire [31:0] saidaalu;
 	wire [31:0] A, B;
 	wire [31:0] mem_muxMemtoreg;
-	output wire [31:0] muxMemtoreg_reg;
-	output wire [31:0] display;
-	wire zero, of;
+	wire [31:0] muxMemtoreg_reg;
+	wire [31:0] display;
+	wire zero;
 	output wire [6:0] out1, out2, out3;
-	output wire negative;
-
+	output wire negative, of;
+	
+	DeBounce db(.DB_out(clk), .clk(clock), .n_reset(1'b1), .button_in(~ndclk));
+	
 	PC instPC(.inaddress(newpc), .outaddress(pc_instmem), .halt(halt), .clk(clk), .reset(reset));
 	
 	ControlUnit instControlUnit(.clk(clk), .ready(ready), .opcode(inst[31:26]), .halt(halt), .reset(reset), .sreg(sreg), .smux5(smux5), .smux16(smux16), .smux32(smux32), .smuxPC(smuxPC), .salu(salu), .smem(smem), .sdisplay(sdisplay), .smemtoreg(smemtoreg));

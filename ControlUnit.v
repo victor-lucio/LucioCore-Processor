@@ -322,17 +322,17 @@ module ControlUnit(clk, ready, opcode, halt, reset, sreg, smux5, smux16, smux32,
 			begin
 				if(ready==1)
 					begin
-						halt =0;
-						reset =0;
-						sreg =1;
-						smux5 =1;
-						smem =0;
-						sdisplay =0;
-						smemtoreg =0;
-						smux32 =1;
-						smux16 =2'b10;  //1:0
-						smuxPC =3'b000; //2:0
-						salu =4'b0000;	 //3:0
+					halt =0;
+					reset =0;
+					sreg =1;
+					smux5 =1;
+					smem =0;
+					sdisplay =0;
+					smemtoreg =0;
+					smux32 =1;
+					smux16 =2'b10;  //1:0
+					smuxPC =3'b000; //2:0
+					salu =4'b0000;	 //3:0
 					end
 				else if(clk==1)
 					begin
@@ -359,7 +359,7 @@ module ControlUnit(clk, ready, opcode, halt, reset, sreg, smux5, smux16, smux32,
 				sdisplay =1;
 				smemtoreg =0;
 				smux32 =0;
-				smux16 =2'b00;  //1:0
+				smux16 =2'b00; //1:0
 				smuxPC =3'b000; //2:0
 				salu =4'b0000;	 //3:0
 			end
@@ -373,7 +373,7 @@ module ControlUnit(clk, ready, opcode, halt, reset, sreg, smux5, smux16, smux32,
 				sdisplay =0;
 				smemtoreg =1;
 				smux32 =1;
-				smux16 =2'b00;  //1:0
+				smux16 =2'b00; //1:0
 				smuxPC =3'b000; //2:0
 				salu =4'b0000;	 //3:0
 			end
